@@ -1,0 +1,2 @@
+LCS length = 4
+Time: 0.000 s (threads=1)

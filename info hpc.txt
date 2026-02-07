@@ -1,0 +1,51 @@
+In the following there are some rules to follow for Final Project assigments and other issues about distribution of provided materials.
+
+1 - Assignments
+Final Projects are assigned to each student. Student shall provide a parallel version of an algorithm with both "OpenMP + MPI" and "OpenMP + Cuda" approaches, comparing results with a known solution on single-processing node. Results and differences shall be discussed for different inputs (type and size). The parallel algorithm used in "OpenMP + MPI" solution could not be the same of the "OpenMP + CUDA" approach.
+
+2 - Project Contents
+The project must include: 
+
+Materials required by  Assignments in other sections. The Requirements of each assignment are in  pages with the prefix:
+
+Common-Assignment: 
+
+Materials to provide ever include a report (pdf) and source code of the project
+
+
+
+3 - Information to include in assets
+All Assets must include: 
+
+Surnames and Names of the students, their IDs and their e-mails
+The Name of the assignment
+The Name of the lecturer (Course Lecturer: Surname, Name, e-mail)
+The requirements of the Assignment
+A proper license agreement (see point 4)
+All references to any kind of bibliography must be included at the end of the report (and referenced through the report).
+For Source Code (Minimum requirement): 
+
+A Makefile for the whole project
+Makefile must include at least the following targets: all, clean, test. "all" is for compilation and linking of the whole project; "clean" is for removing objects, executables and temporary files;  "test" is for execution of test cases
+Separated Headers, Source,  Build and Data directories. Data Directory has to contain input workload data if any
+All code has to be documented (APIs, inner description, choices made, behaviors, variables use and meanings etc.
+Students must "test" their code and test cases must be reported in the project
+Execution options have to be provided externally (in the report) and by on-line help
+a README text file in the project must describe how to compile and use the provided source codes, and how to reproduce results and performance evaluation required in the Assignments.
+If any part of the source code is from other open-source projects, the source must be reported and original license instructions must be followed . 
+All files has to include:
+At the very beginning: the license (GPLv3 ... see the next point) for the file.
+Surnames and Names of the students, their IDs and their e-mails
+The Name of the assignment
+The Name of the lecturer (Course Lecturer: Surname, Name, e-mail)
+The requirements of the Assignment
+The purpose of the file
+
+
+
+4 - Licenses of Provided Material 
+Source code must be provided with a GPLv3 license (https://www.gnu.org/licenses/gpl-3.0.html)
+PDF report must be provided with a Creative Commons "Attribution-NonCommercial-ShareAlike 4.0 International" (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) (Students have to provide the logo of the license too in the frontmatter)
+
+5 - Material Upload.
+Each group will upload its own material on the proper activity in the e-learning platform

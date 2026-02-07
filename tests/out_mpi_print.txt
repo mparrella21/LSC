@@ -1,0 +1,2 @@
+Hirschberg (rank0): len=2 seq=DB
+LCS length = 4

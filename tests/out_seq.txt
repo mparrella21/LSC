@@ -1,0 +1,3 @@
+LCS length = 4
+Time: 0 ms
+LCS seq: BCAB

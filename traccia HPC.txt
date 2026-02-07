@@ -1,0 +1,31 @@
+Si progetti ed implementi, per l'algoritmo Longest common subsequence
+
+Una Versione Parallela Shared Memory realizzata in OpenMP
+Una Versione Parallela Message Passing realizzata in MPI
+Una Versione Parallela realizzata in CUDA
+(OPZIONALE) Una Versione Parallela mista Shared Memory (in OpenMP) / CUDA
+Si seguano le direttive per la realizzazione dei report e dei progetti nell'apposita sezione su questa stessa piattaforma di E-Learning.
+
+Si consideri che alcuni degli algoritmi assegnati potrebbero essere difficilmente parallelizzabili. Lo studente può valutare la realizzazione di una versione parallela che segua approcci differenti da quello sequenziale. 
+
+Anche nel caso in cui non si possa parallelizzare efficacemente l'algoritmo, lo studente deve dar prova: 
+
+Che nelle versioni Shared Memory e CUDA si ha comunque un INCREMENTO di prestazioni (anche minimo) all'aumentare dei thread (fisicamente allocabili) su cui si lancia il programma parallelo
+Che nella versione Message Passing, la realizzazione Parallela, anche in ASSENZA di speedup, riesce a gestire input di grandi dimensioni, altrimenti ingestibili su un solo nodo
+
+
+Le versioni parallele consegnate vanno TESTATE per verificare che PRODUCANO OUTPUT CORRETTI. Il loro output deve quindi essere verificato essere IDENTICO a quello di una NOTA versione SEQUENZIALE FUNZIONANTE e CORRETTA.
+
+Le misure DEVONO essere riproducibili. Questo vuol dire che lo studente deve preparare uno script /programma per creare/leggere da file le strutture dati da passare ai programmi sequenziali e paralleli
+
+Si provveda nelle versioni CUDA, MPI e SHARED Memory ad elaborare input che occupino in memoria strutture dati di dimensioni: 
+
+1MByte
+10 MByte
+100 MByte
+500 MByte
+1 GByte (se possibile solo in MPI)
+
+GLI INPUT NON DEVONO ESSERE ALLEGATI COME FILE AL PROGETTO, MA BISOGNA PROVVEDERE A REALIZZARE UNO SCRIPT CHE LI GENERI
+
+SI CONSEGNINO ANCHE I NOTEBOOK COLAB EVENTUALMENTE USATI PER REALIZZARE E PROVARE I PROGRAMMI PARALLELI
