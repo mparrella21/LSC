@@ -1,70 +1,59 @@
 #!/usr/bin/env bash
-set -euo pipefail
-ROOT=$(cd "$(dirname "$0")/.." && pwd)
-BIN=$ROOT/build
-python3 - <<PY
-s1 = b"ABCBDAB"
-s2 = b"BDCAB"
-open('tests/sample_A.bin','wb').write(s1)
-open('tests/sample_B.bin','wb').write(s2)
-PY
+set -e
 
-echo "Building..."
-make -s
+# Assignment: Longest Common Subsequence (HPC Project)
+# Student: Parrella Marco
+# Purpose: Script di test automatico per la validazione del progetto
 
-echo "Running sequential..."
-"$BIN/lcs_seq" tests/sample_A.bin tests/sample_B.bin --print-seq > tests/out_seq.txt
-cat tests/out_seq.txt
+# Colori per l'output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
 
-echo "Running Hirschberg..."
-# compile and run a small wrapper to test hirschberg sequence via a tiny harness
-cat > tests/h_test.c <<'C'
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../inc/lcs.h"
-int main(){ FILE *fa=fopen("tests/sample_A.bin","rb"), *fb=fopen("tests/sample_B.bin","rb"); fseek(fa,0,SEEK_END); size_t na=ftell(fa); fseek(fa,0,SEEK_SET); char *a=malloc(na); fread(a,1,na,fa); fclose(fa);
- fseek(fb,0,SEEK_END); size_t nb=ftell(fb); fseek(fb,0,SEEK_SET); char *b=malloc(nb); fread(b,1,nb,fb); fclose(fb);
- size_t out; char *s = lcs_sequence_hirschberg(a,na,b,nb,&out); if(s) { printf("Hirschberg: len=%zu seq=%s\n", out, s); free(s); } else printf("Hirschberg: len=0\n"); free(a); free(b); return 0; }
-C
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+BIN="$ROOT/build"
+DATA="$ROOT/tests"
 
-gcc -O2 -std=c11 -Iinc tests/h_test.c src/lcs_hirschberg.c -o tests/h_test
-./tests/h_test > tests/out_hir.txt
-cat tests/out_hir.txt
+mkdir -p "$DATA"
 
-echo "Testing OpenMP (1 and 4 threads)..."
-"$BIN/lcs_omp" tests/sample_A.bin tests/sample_B.bin 1 > tests/out_omp1.txt
-"$BIN/lcs_omp" tests/sample_A.bin tests/sample_B.bin 4 > tests/out_omp4.txt
-cat tests/out_omp1.txt
-cat tests/out_omp4.txt
+echo -e "${GREEN}=== 1. GENERATING TEST DATA ===${NC}"
+# Generiamo dati freschi
+python3 "$ROOT/data/generate_input.py" --size-per-file 5000 --prefix "$DATA/test_data" --seed 123
+FILE_A="$DATA/test_data_A.bin"
+FILE_B="$DATA/test_data_B.bin"
 
-echo "Testing MPI (single-node run with 2 procs)..."
-mpirun -np 2 "${BIN}/lcs_mpi" tests/sample_A.bin tests/sample_B.bin > tests/out_mpi.txt
-cat tests/out_mpi.txt
+echo -e "\n${GREEN}=== 2. RUNNING VERIFY.SH (CORRECTNESS CHECK) ===${NC}"
 
-echo "MPI with sequence reconstruction (rank0)"
-mpirun -np 2 "${BIN}/lcs_mpi" tests/sample_A.bin tests/sample_B.bin --print-seq > tests/out_mpi_print.txt || true
-cat tests/out_mpi_print.txt || true
+# Verifica OMP
+echo -n "Checking OpenMP (1 thread)... "
+bash "$ROOT/scripts/verify.sh" "$BIN/lcs_omp" "$FILE_A" "$FILE_B" 1
 
-# If nvcc is available, build and test CUDA binary
-if command -v nvcc >/dev/null 2>&1; then
-  echo "Testing CUDA binary..."
-  make -s $(BIN)/lcs_cuda >/dev/null 2>&1 || true
-  if [ -x "$BIN/lcs_cuda" ]; then
-    "$BIN/lcs_cuda" tests/sample_A.bin tests/sample_B.bin --print-seq > tests/out_cuda.txt || true
-    cat tests/out_cuda.txt || true
-  else
-    echo "CUDA binary not built"
-  fi
+echo -n "Checking OpenMP (4 threads)... "
+bash "$ROOT/scripts/verify.sh" "$BIN/lcs_omp" "$FILE_A" "$FILE_B" 4
+
+# Verifica Auto-consistenza Sequenziale (opzionale ma utile)
+echo -n "Checking Sequential Baseline... "
+bash "$ROOT/scripts/verify.sh" "$BIN/lcs_seq" "$FILE_A" "$FILE_B"
+
+echo -e "\n${GREEN}=== 3. CHECKING MPI ===${NC}"
+# MPI Manual Check
+MPI_CMD="mpirun --allow-run-as-root -np 2 \"$BIN/lcs_mpi\" \"$FILE_A\" \"$FILE_B\""
+MPI_OUT=$(eval $MPI_CMD)
+
+# FIX: Estraiamo RESULT_LEN
+MPI_LEN=$(echo "$MPI_OUT" | grep "RESULT_LEN:" | awk '{print $2}')
+
+# Calcoliamo la verità con lcs_seq
+REF_OUT=$("$BIN/lcs_seq" "$FILE_A" "$FILE_B")
+REF_LEN=$(echo "$REF_OUT" | grep "RESULT_LEN:" | awk '{print $2}')
+
+if [ "$MPI_LEN" == "$REF_LEN" ] && [ ! -z "$MPI_LEN" ]; then
+    echo -e "MPI (2 procs): ${GREEN}PASS${NC} (len=$MPI_LEN)"
 else
-  echo "nvcc not found; skipping CUDA tests"
+    echo -e "MPI (2 procs): ${RED}FAIL${NC} (MPI=$MPI_LEN, REF=$REF_LEN)"
+    # Debug output se fallisce
+    if [ -z "$MPI_LEN" ]; then echo "Output MPI vuoto o malformato:"; echo "$MPI_OUT"; fi
+    exit 1
 fi
 
-# Hybrid stub
-if [ -x "$BIN/lcs_omp_cuda" ]; then
-  echo "Testing hybrid stub (calls CUDA)..."
-  "$BIN/lcs_omp_cuda" tests/sample_A.bin tests/sample_B.bin 2 > tests/out_hybrid.txt || true
-  cat tests/out_hybrid.txt || true
-fi
-
-echo "All tests ran (compare outputs manually for correctness)."
+echo -e "\n${GREEN}=== ALL TESTS COMPLETED SUCCESSFULLY ===${NC}"

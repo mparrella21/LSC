@@ -1,6 +1,12 @@
-# Makefile for LCS project
+# Assignment: Longest Common Subsequence (HPC Project)
+# Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+# Lecturer: Moscato Francesco, fmoscato@unisa.it
+#
+# License: GPLv3 (see LICENSE file)
+# Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+# Purpose: Script di automazione per la compilazione di tutte le versioni del progetto (Seq, OMP, MPI, CUDA) e pulizia dei binari.
 CC = gcc
-CFLAGS = -O2 -std=c11 -Wall
+CFLAGS = -O3 -std=c11 -Wall
 LDFLAGS =
 MPICC = mpicc
 NVCC = nvcc
@@ -24,7 +30,7 @@ $(BIN)/lcs_mpi: $(SRC)/lcs_mpi.c $(SRC)/lcs_hirschberg.c | $(BIN)
 	$(MPICC) $(CFLAGS) $(SRC)/lcs_mpi.c $(SRC)/lcs_hirschberg.c -o $@
 
 $(BIN)/lcs_cuda: $(SRC)/lcs_cuda.cu | $(BIN)
-	$(NVCC) -O2 $< -o $@
+	$(NVCC) -O3 $< -o $@
 
 $(BIN)/lcs_omp_cuda: $(SRC)/lcs_omp_cuda.c | $(BIN)
 	$(CC) $(CFLAGS) -fopenmp $(SRC)/lcs_omp_cuda.c -o $@

@@ -1,9 +1,13 @@
 /*
- * GPLv3
- * Core LCS routines (length and sequence functions) moved here so they can
- * be linked into other binaries without duplicating `main`.
+ * Assignment: Longest Common Subsequence (HPC Project)
+ * Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+ * Lecturer: Moscato Francesco, fmoscato@unisa.it
+ *
+ * License: GPLv3 (see LICENSE file)
+ * Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+ * Purpose: Funzioni core condivise (allocazione matrice, logica DP base) utilizzate dalle implementazioni sequenziali e parallele.
  */
-
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

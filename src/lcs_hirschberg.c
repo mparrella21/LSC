@@ -1,9 +1,12 @@
 /*
- * GPLv3
- * Hirschberg LCS (memory-optimized) implementation
- * Student: <Your Name>
+ * Assignment: Longest Common Subsequence (HPC Project)
+ * Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+ * Lecturer: Moscato Francesco, fmoscato@unisa.it
+ *
+ * License: GPLv3 (see LICENSE file)
+ * Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+ * Purpose: Implementazione dell'algoritmo di Hirschberg per calcolare la LCS con complessità spaziale lineare O(min(n,m)).
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

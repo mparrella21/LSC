@@ -1,3 +1,12 @@
+# Assignment: Longest Common Subsequence (HPC Project)
+# Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+# Lecturer: Moscato Francesco, fmoscato@unisa.it
+#
+# License: GPLv3 (see LICENSE file)
+# Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+# Purpose: Suite di test automatizzati per verificare il corretto funzionamento delle interfacce CLI degli eseguibili.
+
+
 import subprocess
 
 def test_seq_basic():

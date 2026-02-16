@@ -1,3 +1,12 @@
+/*
+ * Assignment: Longest Common Subsequence (HPC Project)
+ * Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+ * Lecturer: Moscato Francesco, fmoscato@unisa.it
+ *
+ * License: GPLv3 (see LICENSE file)
+ * Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+ * Purpose: Programma di test unitario per verificare funzionalità specifiche o componenti ausiliari dell'algoritmo.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

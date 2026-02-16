@@ -1,11 +1,13 @@
 /*
- * GPLv3
- * Project: LCS - High Performance Computing assignment
- * Student: <Your Name, ID, email>
- * Lecturer: <Course Lecturer>
- * Purpose: Declarations for LCS implementations (sequential, Hirschberg, OpenMP, MPI, CUDA)
+ * Assignment: Longest Common Subsequence (HPC Project)
+ * Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+ * Lecturer: Moscato Francesco, fmoscato@unisa.it
+ *
+ * License: GPLv3 (see LICENSE file)
+ * Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+ * Purpose: Header file che definisce le strutture dati comuni, i prototipi delle funzioni e le costanti del progetto.
  */
-
+ 
 #ifndef LCS_H
 #define LCS_H
 

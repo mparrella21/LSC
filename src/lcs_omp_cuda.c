@@ -1,8 +1,11 @@
 /*
- * GPLv3
- * Hybrid stub: calls CUDA binary while optionally using OpenMP on host
- * This is a simple wrapper to demonstrate hybrid execution (real hybrid
- * implementations would mix work between CPU threads and GPU kernels).
+ * Assignment: Longest Common Subsequence (HPC Project)
+ * Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+ * Lecturer: Moscato Francesco, fmoscato@unisa.it
+ *
+ * License: GPLv3 (see LICENSE file)
+ * Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+ * Purpose: Stub per l'esecuzione ibrida OpenMP/CUDA (wrapper host-side per invocare il kernel GPU).
  */
 
 #include <stdio.h>

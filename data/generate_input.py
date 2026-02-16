@@ -1,3 +1,11 @@
+# Assignment: Longest Common Subsequence (HPC Project)
+# Student: Parrella Marco, Matricola: 0622702536, Email: m.parrella21@studenti.unisa.it
+# Lecturer: Moscato Francesco, fmoscato@unisa.it
+#
+# License: GPLv3 (see LICENSE file)
+# Requirements: Implement Parallel LCS (OpenMP, MPI, CUDA)
+# Purpose: Generatore di input casuali (sequenze ASCII/DNA) di dimensioni configurabili per test e benchmark.
+
 #!/usr/bin/env python3
 """
 Input generator for LCS project.
