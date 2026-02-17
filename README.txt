@@ -71,8 +71,7 @@ EXECUTION & REPRODUCIBILITY
      1. Upload 'cudaLCS.ipynb' to Google Colab.
      2. Upload the input generator script ('data/generate_input.py') to the 
         Colab session storage (root folder).
-     3. (Optional) Upload 'src/lcs_cuda.cu' if the notebook does not contain 
-        the inline code cell.
+     3. Upload 'src/lcs_cuda.cu'
      4. Run all cells. The notebook handles compilation and execution automatically.
 
 4. VERIFY CORRECTNESS
