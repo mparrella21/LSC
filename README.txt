@@ -38,11 +38,21 @@ COMPILATION (LOCAL ENVIRONMENT)
 Prerequisites: GCC (with OpenMP), MPICH/OpenMPI, Python 3.
 Optional: NVCC (NVIDIA Cuda Toolkit) for local GPU compilation.
 
-To compile all CPU versions (Seq, OMP, MPI):
+To compile all versions (including CUDA if nvcc is present):
     make
+
+To compile ONLY CPU versions (avoiding errors if nvcc is missing):
+    make build/lcs_seq build/lcs_omp build/lcs_mpi
 
 To clean build files:
     make clean
+
+NOTE ON 'make test':
+Running 'make test' attempts to compile all targets first. If 'nvcc' is missing, 
+the process will stop with an error before running the tests. 
+In this case, compile the CPU versions manually (see above) and then run 
+the test script directly:
+    bash tests/run_tests.sh
 
 NOTE ON CUDA COMPILATION:
 The Makefile attempts to compile 'lcs_cuda' using 'nvcc'. 
